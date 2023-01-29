@@ -1,27 +1,23 @@
 package service;
 
-import modelo.Envio;
-import modelo.Estudiante;
-
-import java.util.ArrayList;
-
 public class EnvioMaterial {
-
-    public void enviarMaterialEstudiante(Estudiante estudiante) {
-        if (estudiante.carrera.equals("Informatica")) {
-            Envio envio = new Envio();
-            envio.material = new ArrayList<>();
-            envio.material.add("Computador");
-            envio.material.add("Mouse");
-            envio.saludoDirector = "Jenny envia saludos";
-            EmailOutlook email = new EmailOutlook();
-            email.enviarEmail(envio);
+     //Principio de inversión de dependencias: Se debe depender de clases abstractas y no directamente de las clases, lo que nos permitirá cambiar  una clase por otra, sin tener que cambiar prácticamente nada.
+    
+        private IEnviar interfaz;
+        
+        public EnvioMaterial(IEnviar interfaz) {
+            this.interfaz = interfaz;
         }
-        if (estudiante.carrera.equals("Administracion")) {
-            //lo mismo de arriba pero con otra informacion
+        
+        public void enviarMaterialEstudiante() {
+            interfaz.enviarMaterialEstudiante();
+        } 
+    
+        void enviarEmail() {
+            interfaz.enviarEmail();
         }
-        if (estudiante.carrera.equals("Industrial")) {
-            //
-        }
+        
     }
-}
+    
+
+

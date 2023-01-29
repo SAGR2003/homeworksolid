@@ -1,31 +1,22 @@
 package main;
-
-import modelo.Estudiante;
-import service.EnvioMaterial;
+import modelo.*;
 
 public class Main {
     public static void main(String[] args) {
+        //Si se añade un nuevo estudiante, se crea un nuevo hijo, para que el metodo quede abierto a extensión y cerrado a modificación
         Estudiante[] listadoEstudiantes = {
-                new Estudiante("Daniel", "Informatica"),
-                new Estudiante("Monica", "Administracion"),
-                new Estudiante("Liliana", "Industrial")
+                new Daniel(),
+                new Monica(),
+                new Liliana()
         };
         verMateriasEstudiantes(listadoEstudiantes);
-        EnvioMaterial material = new EnvioMaterial();
-        material.enviarMaterialEstudiante(new Estudiante("Daniel", "Informatica"));
     }
 
     public static void verMateriasEstudiantes(Estudiante[] estudiantes) {
+                //Open closed, para que no tenga que  modificar el metodo cada vez que se añada una carrera
         for (Estudiante estudiante : estudiantes) {
-            if (estudiante.carrera.equals("Informatica")) {
-                System.out.println("Programacion, Arquitectura, Base de datos");
-            }
-            if (estudiante.carrera.equals("Administracion")) {
-                System.out.println("Negocios, Administracion I, Historia de la Administracion");
-            }
-            if (estudiante.carrera.equals("Industrial")) {
-                System.out.println("Procesos, Analitica de datos, Gestion de Calidad ");
-            }
+                System.out.println(estudiante.getCarrera());
+                estudiante.mostrarMaterias();
         }
     }
 }
